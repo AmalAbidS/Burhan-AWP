@@ -1,0 +1,1196 @@
+/* 
+
+Moonlight Template 
+
+https://templatemo.com/tm-512-moonlight
+
+*/
+
+@keyframes seq-preloader {
+  50% {
+    opacity: 1;
+  }
+  
+  100% {
+    opacity: 0;
+  }
+}
+
+
+.profile-icon {
+  font-size: 50px;  /* تغيير حجم الأيقونة */
+  color: #007bff;   /* تغيير اللون */
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+
+.seq-preloader {
+  background: white;
+  visibility: visible;
+  opacity: 1;
+  position: absolute;
+  z-index: 9999;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.seq-preloader.seq-preloaded {
+  opacity: 0;
+  visibility: hidden;
+  transition: visibility 0s .5s, opacity .5s;
+}
+
+.seq-preload-indicator {
+  overflow: visible;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.seq-preload-circle {
+  display: inline-block;
+  height: 12px;
+  width: 12px;
+  fill: #7a7a7a;
+  opacity: 0;
+  animation: seq-preloader 1.25s infinite;
+}
+
+.seq-preload-circle-2 {
+  animation-delay: .15s;
+}
+
+.seq-preload-circle-3 {
+  animation-delay: .3s;
+}
+
+.seq-preload-indicator-fallback {
+  width: 42px;
+  overflow: visible;
+}
+
+.seq-preload-indicator-fallback .seq-preload-circle {
+  width: 8px;
+  height:8px;
+  background-color: #f4f4f4;
+  border-radius: 100%;
+  opacity: 1;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.seq-preload-indicator-fallback .seq-preload-circle-2 {
+  margin-left: 3px;
+  margin-right: 3px;
+  width: 12px;
+  height: 12px;
+}
+
+.seq-preload-indicator-fallback .seq-preload-circle-3 {
+  width: 16px;
+  height: 16px;
+}
+
+
+/* MAIN CSS */
+
+@-webkit-keyframes fill {
+  0% {
+    width: 0%;
+    height: 1px;
+  }
+  50% {
+    width: 100%;
+    height: 1px;
+  }
+  100% {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+  }
+}
+@keyframes fill {
+  0% {
+    width: 0%;
+    height: 1px;
+  }
+  50% {
+    width: 100%;
+    height: 1px;
+  }
+  100% {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+  }
+}
+@-webkit-keyframes fillColour {
+  0% {
+    color: #fff;
+  }
+  50% {
+    color: #fff;
+  }
+  100% {
+    color: #333;
+  }
+}
+@keyframes fillColour {
+  0% {
+    color: #fff;
+  }
+  50% {
+    color: #fff;
+  }
+  100% {
+    color: #333;
+  }
+}
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
+}
+
+html {
+	overflow: hidden;
+}
+/* تنسيق عام للصفحة *//* تنسيق عام للصفحة */
+body {
+	margin: 0;
+	padding: 0;
+	height: 100vh; /* تأكد أن الارتفاع يغطي كامل الشاشة */
+	background: linear-gradient(to bottom right, #000000, #0d274d); /* التدرج من الأسود إلى الأزرق */
+	font-family: Arial, sans-serif; /* يمكنك تغيير الخط إذا أردت */
+	position: relative;
+  }
+  
+/* تنسيق النافبار */
+nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 15%;
+  height: 100vh;
+  background: linear-gradient(to bottom right, #000000, #123466);
+  z-index: 100;
+  border-top-left-radius: 90px;
+  border-bottom-left-radius: 0;
+  padding: 20px 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: right 0.5s ease-out; /* تأثير الانزلاق الناعم */
+}
+
+  
+/* إخفاء النافبار */
+nav.hide {
+  right: -15%; /* إخفاء النافبار */
+}
+
+/* إظهار النافبار */
+nav.show {
+  right: 0; /* إعادة النافبار إلى مكانها */
+}
+
+nav .logo img {
+  max-width: 80%;
+}
+
+/* إخفاء الـ navbar */
+nav.hidden {
+  transform: translateX(100%); /* إخفاء الـ navbar بإزاحته خارج الشاشة */
+}
+
+/* الشعار */
+nav .logo {
+  margin-top: 20px;
+  text-align: center;
+}
+
+nav .logo img {
+  max-width: 80%;
+}
+
+/* القوائم */
+nav ul {
+  margin-top: 30px;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+nav ul li {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #fff;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  padding: 10px 15px;
+  width: 200px;
+  display: block;
+  position: relative;
+  transition: 0.3s ease-in-out;
+}
+
+nav ul li i {
+  color: red;
+  font-size: 22px;
+  margin: 8px;
+  margin-right: 10px;
+}
+
+nav ul li a:hover {
+  color: #000;
+  background-color: #fff;
+  width: 200px;
+  border-radius: 25px;
+}
+
+nav ul li a.active {
+  color: #ffffff;
+  background-color: #565e6a;
+  width: 200px;
+  border-radius: 25px;
+}
+
+nav a::before {
+  content: "";
+  position: absolute;
+  height: 0%;
+  width: 0%;
+  bottom: 0;
+  left: 0;
+  opacity: 1;
+  z-index: -1;
+}
+
+nav a:hover {
+  text-decoration: none;
+  -webkit-animation: fillColour 0.7s forwards ease-in-out;
+  animation: fillColour 0.7s forwards ease-in-out;
+}
+
+nav a:hover::before {
+  opacity: 1;
+}
+
+
+/* الحاوية الرئيسية */
+.profile-container {
+  position: relative;
+  height: auto; /* Adjust to content height */
+  overflow: visible; /* Ensure child elements aren't clipped */
+  padding-bottom: 100px; /* Add enough padding for the card's height */
+}
+
+/* تصميم الخطوط الخلفية */
+/* تصميم الخطوط داخل شكل دائري */
+/* تصميم الخطوط داخل شكل دائري */
+.background-lines {
+  position: absolute;
+  top: -100px; /* لإزاحتها قليلاً عن الزاوية */
+  left: -100px;
+  width: 325px; /* عرض الدائرة */
+  height: 220px; /* ارتفاع الدائرة */
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(255, 215, 0, .3) 0,
+    rgba(255, 215, 0, .2) 2px,
+    transparent 2px,
+    transparent 8px
+  );
+  border-top-left-radius: 150px; /* جعل الزاوية العليا اليسرى دائرية */
+  border-bottom-left-radius: 150px; /* جعل الزاوية السفلى اليسرى دائرية */
+  border-top-right-radius: 200px; /* جعل الزاوية العليا اليمنى زاوية قائمة */
+  border-bottom-right-radius: 200px; /* جعل الزاوية السفلى اليمنى زاوية قائمة */
+  overflow: hidden; /* منع أي محتوى زائد من الظهور */
+  z-index: 1;
+  opacity: 0.8; /* تقليل وضوح الخطوط */
+}
+
+
+/* البطاقة الشخصية */
+.profile-card {
+  position: absolute;
+  top: 20px; /* مسافة من أعلى */
+  left: 20px; /* مسافة من اليسار */
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  z-index: 10; /* لتكون فوق الخلفية */
+}
+
+/* الصورة الشخصية */
+.profile-img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%; /* صورة دائرية */
+  border: 2px solid #ffffff; /* إطار أبيض */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* ظل للصورة */
+}
+
+/* النص بجانب الصورة */
+.profile-text h2 {
+  color: #ffffff;  
+  font-size: 20px; /* اسم المستخدم */
+  margin: 0;
+}
+
+.profile-text p {
+font-size: 16px; /* المسمى الوظيفي */
+  margin: 0;
+  color: #ffd700; /* النص الذهبي */
+}
+.slides {
+  width: 600vw;
+  height: 100vh;
+  -webkit-transition: -webkit-transform 0.8s ease;
+  transition: -webkit-transform 0.8s ease;
+  transition: transform 0.8s ease;
+  transition: transform 0.8s ease, -webkit-transform 0.8s ease;
+}
+.slides .slide {
+  height: 100vh;
+  width: 100vw;
+  float: left;
+  text-align: center;
+  background-size: cover;
+}
+.slides .slide .content {
+  overflow-y: scroll;
+  position: relative;
+  width: 70%;
+  height: 80%;
+  left: 30%;
+  top: 10%;
+  bottom: 10%;
+  background: rgba(0, 0, 0, 0.5);
+}
+.content::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+/* Add a thumb */
+.content::-webkit-scrollbar-thumb {
+    background: rgba(250, 250, 250, 0.5);
+}
+
+.slides .slide:nth-child(1) {
+  background-image: url(../img/first_bg.jpg);
+}
+.slides .slide:nth-child(2) {
+  background-image: url(../img/second_bg.jpg);
+}
+.slides .slide:nth-child(3) {
+  background-image: url(../img/third_bg.jpg);
+}
+.slides .slide:nth-child(4) {
+  background-image: url(../img/fourth_bg.jpg);
+ }
+.slides .slide:nth-child(5) {
+  background-image: url(../img/fifth_bg.jpg);
+}
+.slides .slide:nth-child(6) {
+  background-image: url(../img/fourth_bg.jpg);
+}
+.slides .slide img {
+  width: 100%;
+}
+
+
+.main-btn a:hover {
+	background-color: #fff;
+	color: #232323!important;
+}
+
+
+/* REPONSIVE */
+
+@media (max-width: 991px) {
+
+	nav ul {
+  		margin-left: 25px;
+  	}
+
+	.first-content {
+		text-align: center;
+		padding: 50px;
+	}
+
+	.first-content .author-image img {
+		max-width: 195px;
+		float: none;
+		margin-right: 0px;
+		margin-bottom: 30px;
+	}
+
+	.third-content .first-section {
+		border-bottom: 1px solid rgba(250,250,250,0.3);
+		padding-bottom: 45px;
+		margin-bottom: 45px;
+	}
+
+	.third-content .first-section .left-content {
+		margin-right: 0px;
+		margin-bottom: 30px;
+	}
+
+	.third-content .first-section .right-image {
+		margin-left: 0px;
+	}
+
+	.third-content .second-section .right-content {
+		margin-left: 0px;
+		margin-top: 30px;
+	}
+
+
+	.third-content .second-section .left-image {
+		margin-right: 0px;
+	}
+
+	.fifth-content #map {
+		padding: 30px 30px 30px 30px;
+	}
+
+	.fifth-content #contact {
+		padding: 30px 30px 30px 30px;
+	}
+
+}
+
+@media (max-width: 749px) {
+
+	nav {
+		width: 15vh;
+	}
+
+	nav .logo {
+		display: none;
+	}
+
+	nav .mini-logo {
+		margin-top: 60px;
+		display: block;
+	}
+
+	nav ul {
+		text-align: center;
+		margin-left: 0px;
+	}
+
+
+	nav ul li em {
+		display: none;
+	}
+
+	nav ul li i {
+		width: 20px;
+		height: 20px;
+		line-height: 20px;
+		text-align: center;
+	}
+
+	.first-content {
+		padding: 30px 5px;
+	}
+
+	.first-content .main-btn {
+		display: inline-block;
+		margin-right: 0px;
+		margin-bottom: 15px;
+	}
+
+	.second-content .left-content {
+		padding: 30px;
+		text-align: left;
+	}
+
+	.fourth-content .item .hover-effect h2 {
+		font-size: 15px;
+	}
+
+
+	.fifth-content #map {
+		padding: 15px 15px 15px 15px;
+	}
+
+	.fifth-content #contact {
+		padding: 15px 15px 15px 15px;
+	}
+
+}
+
+@media(max-width: 450px) {
+	nav ul {
+		margin-top: 30px;
+	}
+	nav ul li {
+		margin: 10px 0px;
+	}
+	nav a {
+	  	padding: 15px 20px;
+	}
+}
+
+/*progress par */
+
+.progress-tracker {
+  display: flex;
+  margin: 25px auto;
+  padding: 0;
+  list-style: none;
+  
+  
+}
+.progress-step {
+  flex: 1 1 0%;
+  margin: 0;
+  padding: 0;
+  min-width: 24px;
+}
+
+
+.progress-step:last-child {
+  flex-grow: 0;
+  margin-right: 0px; /* قلل القيمة هنا لتقريب الدوائر */
+
+}
+.progress-step:last-child .progress-marker::after {
+  display: none;
+}
+
+.progress-step.is-active .progress-text .progress-title {
+  font-size: 25px; /* حجم النص أكبر في حالة الاكتف */
+  color: #b89213;  /* تغيير لون النص إلى لون مميز */
+  font-family: "Almarai";
+}
+
+.progress-link {
+  display: block;
+  position: relative;
+}
+
+.progress-marker {
+  display: block;
+  position: relative;
+}
+.progress-marker::before {
+  content: attr(data-text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 20;
+  width: 24px;
+  height: 24px;
+  padding-bottom: 2px;
+  border-radius: 50%;
+  transition: background-color, border-color;
+  transition-duration: 0.3s;
+}
+.progress-marker::after {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: -10;
+  top: 10px;
+  right: -12px;
+  height: 4px;
+  transition: background-color 0.3s, background-position 0.3s;
+  background-color: #333;
+  width: 50%; /* Adjust this value to your desired length */
+
+}
+
+.progress-text {
+  display: block;
+  padding: 8px 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.progress-title {
+  margin-top: 0;
+  font-family:"FontAwesome";
+}
+  .progress-text .progress-title {
+    font-family: 'Almarai'; /* استخدام خط FontAwesome */
+    font-size: 16px;  /* حجم النص */
+  }
+
+
+.progress-step .progress-marker {
+  color: #fff;
+}
+.progress-step .progress-marker::before {
+  background-color: #ffffff;
+}
+
+.progress-step .progress-marker::after {
+  width: 100%; /* Adjust the length of the line */
+  background-color: #b6b6b6; /* Keep the line color */
+}
+
+
+.progress-step .progress-text {
+  color: #ffffff;
+}
+.progress-step.is-active .progress-marker::before {
+  background-color: #ad1917;
+}
+.progress-step.is-complete .progress-marker::before, .progress-step.is-progress .progress-marker::before {
+  background-color: #441b1b;
+}
+.progress-step.is-complete .progress-marker::after, .progress-step.is-progress .progress-marker::after {
+  background-color: #868686;
+}
+.progress-step.is-complete:hover .progress-marker::before {
+  background-color: #333;
+}
+.progress-step.is-active:hover .progress-marker::before {
+  background-color: #DF7B74;
+}
+
+.progress-tracker--text .progress-step:last-child, .progress-tracker--center .progress-step:last-child, .progress-tracker--right .progress-step:last-child {
+  flex-grow: 1;
+}
+
+.progress-tracker--center {
+  text-align: center;
+}
+.progress-tracker--center .progress-marker::before, .progress-tracker--center .progress-text--dotted::before {
+  margin-left: auto;
+  margin-right: auto;
+}
+.progress-tracker--center .progress-marker::after {
+  right: -50%;
+}
+
+.progress-tracker--right {
+  text-align: right;
+}
+.progress-tracker--right .progress-marker::before, .progress-tracker--right .progress-text--dotted::before {
+  margin-left: auto;
+}
+.progress-tracker--right .progress-marker::after {
+  right: calc(-100% + 12px);
+}
+
+.progress-tracker--spaced .progress-marker::after {
+  width: calc(100% - 40px);
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.progress-tracker--border {
+  padding: 4px;
+  border: 2px solid #333;
+  border-radius: 32px;
+}
+
+
+
+@media (max-width: 575px) {
+  .progress-tracker-wrapper {
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+  }
+  .progress-tracker-wrapper .progress-step {
+    min-width: 50%;
+    scroll-snap-align: start;
+  }
+}
+.progress-tracker--vertical {
+  flex-direction: column;
+}
+.progress-tracker--vertical .progress-step {
+  display: flex;
+  flex: 1 1 auto;
+}
+.progress-tracker--vertical.progress-tracker--right .progress-step {
+  flex-direction: row-reverse;
+}
+.progress-tracker--vertical .progress-marker::after {
+  right: auto;
+  top: 12px;
+  left: 10px;
+  width: 4px;
+  height: 100%;
+}
+.progress-tracker--vertical .progress-text {
+  padding: 0 12px 24px 12px;
+}
+
+@keyframes scale-up {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+.anim-ripple .progress-link::before, .anim-ripple-large .progress-link::before, .anim-ripple-splash .progress-link::before {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 30;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  visibility: hidden;
+}
+.anim-ripple .progress-link:not(:active)::before, .anim-ripple-large .progress-link:not(:active)::before, .anim-ripple-splash .progress-link:not(:active)::before {
+  animation: scale-up 0.3s ease-out;
+}
+.anim-ripple .progress-link:focus::before, .anim-ripple-large .progress-link:focus::before, .anim-ripple-splash .progress-link:focus::before {
+  visibility: visible;
+}
+
+.anim-ripple.progress-tracker--center .progress-link::before, .anim-ripple.progress-tracker--center .progress-link::after, .progress-tracker--center .anim-ripple .progress-link::before, .progress-tracker--center .anim-ripple .progress-link::after, .anim-ripple-large.progress-tracker--center .progress-link::before, .anim-ripple-large.progress-tracker--center .progress-link::after, .progress-tracker--center .anim-ripple-large .progress-link::before, .progress-tracker--center .anim-ripple-large .progress-link::after, .anim-ripple-splash.progress-tracker--center .progress-link::before, .anim-ripple-splash.progress-tracker--center .progress-link::after, .progress-tracker--center .anim-ripple-splash .progress-link::before, .progress-tracker--center .anim-ripple-splash .progress-link::after, .anim-ripple-double.progress-tracker--center .progress-link::before, .anim-ripple-double.progress-tracker--center .progress-link::after, .progress-tracker--center .anim-ripple-double .progress-link::before, .progress-tracker--center .anim-ripple-double .progress-link::after {
+  left: 50%;
+}
+.anim-ripple.progress-tracker--right .progress-link::before, .anim-ripple.progress-tracker--right .progress-link::after, .progress-tracker--right .anim-ripple .progress-link::before, .progress-tracker--right .anim-ripple .progress-link::after, .anim-ripple-large.progress-tracker--right .progress-link::before, .anim-ripple-large.progress-tracker--right .progress-link::after, .progress-tracker--right .anim-ripple-large .progress-link::before, .progress-tracker--right .anim-ripple-large .progress-link::after, .anim-ripple-splash.progress-tracker--right .progress-link::before, .anim-ripple-splash.progress-tracker--right .progress-link::after, .progress-tracker--right .anim-ripple-splash .progress-link::before, .progress-tracker--right .anim-ripple-splash .progress-link::after, .anim-ripple-double.progress-tracker--right .progress-link::before, .anim-ripple-double.progress-tracker--right .progress-link::after, .progress-tracker--right .anim-ripple-double .progress-link::before, .progress-tracker--right .anim-ripple-double .progress-link::after {
+  left: calc(100% - 12px);
+}
+
+.anim-ripple-splash .progress-link::before {
+  width: 48px;
+  height: 48px;
+  box-shadow: 0 0 6px 6px rgba(0, 0, 0, 0.35);
+}
+
+.anim-ripple-double .progress-link::before, .anim-ripple-double .progress-link::after {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 30;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  visibility: hidden;
+  background: none;
+  border: 3px solid rgba(0, 0, 0, 0.3);
+}
+.anim-ripple-double .progress-link:not(:active)::before, .anim-ripple-double .progress-link:not(:active)::after {
+  animation: scale-up 0.3s ease-out 0s;
+}
+.anim-ripple-double .progress-link:not(:active)::after {
+  animation-delay: 0.15s;
+}
+.anim-ripple-double .progress-link:focus::before, .anim-ripple-double .progress-link:focus::after {
+  visibility: visible;
+}
+
+.anim--large .progress-link::before, .anim--large .progress-link::after {
+  width: 48px;
+  height: 48px;
+}
+
+.anim--path .progress-marker::after {
+  background-image: linear-gradient(to right, #b6b6b6 50%, #868686 50%);
+  background-size: 200% 100%;
+  background-position: 0% 100%;
+  transition: background-position 0.3s ease-out;
+}
+.progress-step.is-complete .anim--path .progress-marker::after {
+  background-position: -100% 100%;
+}
+.anim--path .progress-step.is-complete .progress-marker::after {
+  background-position: -100% 100%;
+}
+
+[dir=rtl] .progress-marker::after {
+  right: auto;
+  left: -12px;
+}
+[dir=rtl] .progress-tracker--center .progress-marker::after {
+  left: -50%;
+}   
+
+
+  /* Button Container for Left Button */
+.Analyis-btn-container {
+  position: fixed;
+  bottom: 20px; /* Distance from the bottom */
+  left: 20%; /* Closer to the center but not exactly in the middle */
+  z-index: 1000; /* Ensure it stays above other elements */
+}
+
+/* Button Container for Right Button */
+.Analyis-btn-container-right {
+  position: fixed;
+  bottom: 20px; /* Same distance from the bottom */
+  right: 20%; /* Closer to the center but not exactly in the middle */
+  z-index: 1000; /* Same layering */
+}
+
+/* Start Button */
+.Analyis-btn {
+  font-family: 'Almarai', sans-serif;
+  display: inline-block;
+  width: 150px;
+  padding: 10px 20px; /* Adjust padding for the button size */
+  font-size: 25px; /* Font size for the text */
+  color: #0d192b; /* Button text color */
+  background-color: #a68731; /* Gold-like background */
+  border: none; /* Remove default border */
+  border-radius: 20px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  text-align: center; /* Center text */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+}
+
+/* Hover Effect */
+.Analyis-btn:hover {
+  background-color: #916c28; /* Slightly darker gold on hover */
+  transform: scale(1.05); /* Slight scaling effect */
+}
+
+/* Focus Effect */
+.Analyis-btn-container:focus,
+.Analyis-btn-container-right:focus {
+  outline: none; /* Remove default focus outline */
+  box-shadow: 0 0 10px rgba(166, 135, 49, 0.8); /* Add a glowing effect */
+}
+
+/* Page-Specific Wrapper */
+.page-wrapper {
+  display: flex;
+  /* Enable flexbox for centering */
+  justify-content: center;
+  /* Center horizontally */
+  align-items: center;
+  /* Center vertically */
+  position: relative;
+}
+
+/* Form Container */
+.form-container {
+  direction: rtl; /* تأكيد اتجاه النص من اليمين لليسار */
+  display: flex;
+  flex-direction: column;
+  gap: 50px; /* Space between fields */
+  width: 100%; /* Adjust container width */
+  max-width: 35%; /* Limit the width */
+  box-sizing: border-box;
+
+  height: 80vh; /* تقصير الطول */
+  min-height: 150px; /* ضمان وجود حد أدنى للطول */
+  overflow: hidden; /* إخفاء المحتوى الزائد إن وجد */
+
+  overflow-y: auto;
+  /* إضافة خصائص لتحسين التمرير */
+  scrollbar-width: thin; /* لجعل شريط التمرير نحيفًا في Firefox */
+  scrollbar-color: #0c203e25 transparent; /* لون التمرير وخلفيته في Firefox */
+  
+}
+
+
+/* تخصيص الخيارات في القائمة */
+.form-container select option {
+  background-color: #ffffff; /* خلفية بيضاء للخيارات */
+  color: #333333; /* لون النص داخل الخيارات */
+  padding: 5px; /* مساحة داخلية للخيارات */
+  border: none; /* إزالة الحدود */
+}
+
+/* Labels */
+.field-label {
+  padding-bottom: 10px;
+  font-family: 'Almarai', sans-serif;
+  font-size: 20px;
+  color: #a68731;
+  /* Gold-like color */
+  font-weight: bold;
+  text-align: right;
+  width: 100%;
+}
+
+/* Styled Select Wrapper */
+.styled-select-wrapper {
+  position: relative;
+}
+
+/* Styled Select */
+.styled-select {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 16px;
+  color: #ffffff;
+  /* White text color */
+  background-color: transparent;
+  /* Transparent background */
+  border: 1px solid #ffffff;
+  /* White border */
+  border-radius: 10px;
+  /* Rounded corners */
+  text-align-last: right;
+  /* Align dropdown text to the right */
+  cursor: pointer;
+  appearance: none;
+  /* Remove default dropdown arrow */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Styled Select Focus State */
+.styled-select:focus {
+  border-color: #9c2529;
+  /* Gold border on focus */
+  outline: none;
+}
+
+/* Styled Textarea */
+.styled-textarea {
+  width: 100%;
+  /* Full width */
+  height: 120px;
+  /* Adjust height */
+  padding: 10px 15px;
+  font-size: 16px;
+  color: #ffffff;
+  /* White text color */
+  background-color: transparent;
+  /* Transparent background */
+  border: 1px solid #ffffff;
+  /* White border */
+  border-radius: 10px;
+  /* Rounded corners */
+  text-align: right;
+  /* Align text to the right */
+  resize: none;
+  /* Disable resizing */
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Styled Textarea Focus State */
+.styled-textarea:focus {
+  border-color: #9c2529;
+  /* Gold border on focus */
+  outline: none;
+}
+
+/* Location Container */
+.location-container {
+  display: flex;
+  justify-content: space-between;
+  /* Align fields and iframe side by side */
+  align-items: flex-start;
+  /* Align items at the top */
+  gap: 20px;
+  /* Space between the fields and the iframe */
+  border: 1px solid #ffffff;
+  /* Enclose iframe and inputs with white border */
+  border-radius: 10px;
+  /* Rounded corners */
+  padding: 30px;
+  /* Padding inside the container */
+  background-color: transparent;
+  /* Transparent background */
+  width: 100%;
+  /* Full width */
+  max-width: 100%;
+  /* Limit overall width */
+}
+
+/* Input Fields Container */
+.location-fields {
+  display: flex;
+  flex-direction: column;
+  /* Stack fields vertically */
+  gap: 15px;
+  /* Space between fields */
+  flex: 1;
+  /* Flexible width */
+  max-width: 300px;
+  /* Limit width of input fields */
+}
+
+/* Field Wrapper */
+.field {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Location Labels (Covering the Input) */
+.location-label {
+  font-family: 'Almarai', sans-serif;
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  /* Adjust spacing as needed */
+  transform: translateY(-50%);
+  /* Center vertically */
+  background-color: transparent;
+  /* Matches the background */
+  font-size: 16px;
+  color: #ffffff;
+  /* White color */
+  padding: 0 5px;
+  /* Add padding for the text */
+  pointer-events: none;
+  /* Prevent clicking the label */
+  transition: all 0.3s ease;
+  /* Smooth transition */
+}
+
+/* Styled Inputs */
+.styled-input {
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  color: #ffffff;
+  /* White text */
+  background-color: transparent;
+  /* Transparent background */
+  border: 1px solid #ffffff;
+  /* White border */
+  border-radius: 10px;
+  /* Rounded corners */
+  text-align: right;
+  /* Align text to the right */
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Move the label when the input is focused or has text */
+.styled-input:focus+.location-label,
+.styled-input:not(:placeholder-shown)+.location-label {
+  top: -10px;
+  /* Move above the input */
+  font-size: 12px;
+  /* Smaller text */
+  padding: 0 5px;
+  /* Add padding to overlap */
+}
+
+.styled-input:focus {
+  border-color: #9c2529;
+  /* Gold border on focus */
+  outline: none;
+}
+
+/* Styled Iframe */
+.styled-iframe {
+  flex: 2;
+  /* Take up more space than the inputs */
+  height: 350px;
+  /* Fixed height */
+  border-radius: 10px;
+  /* Rounded corners for iframe */
+  border: 1px solid #ffffff;
+  /* White border around iframe */
+}
+
+/* Responsive Design for Small Screens */
+@media (max-width: 768px) {
+  .location-container {
+    flex-direction: column;
+    /* Stack iframe and inputs vertically */
+  }
+
+  .styled-iframe {
+    width: 50%;
+    /* Full width on smaller screens */
+    height: 200px;
+    /* Reduce iframe height on smaller screens */
+  }
+}
+
+/* Button Container for Positioning */
+.start-button-container {
+  position: fixed;
+  bottom: 20px;
+  /* Distance from the bottom */
+  left: 20px;
+  /* Distance from the left */
+  z-index: 1000;
+  /* Ensure it stays above other elements */
+}
+
+/* Start Button */
+.start-button {
+  font-family: 'Almarai', sans-serif;
+  display: inline-block;
+  width: 150px;
+  padding: 10px 20px;
+  /* Adjust padding for the button size */
+  font-size: 25px;
+  /* Font size for the text */
+  color: #0d192b;
+  /* White font color */
+  background-color: #a68731;
+  /* Gold-like background */
+  border: none;
+  /* Remove default border */
+  border-radius: 20px;
+  /* Rounded corners */
+  cursor: pointer;
+  /* Pointer cursor on hover */
+  text-align: center;
+  /* Center text */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover Effect */
+.start-button:hover {
+  background-color: #916c28;
+  /* Slightly darker gold on hover */
+  transform: scale(1.05);
+  /* Slight scaling effect */
+}
+
+/* Focus Effect */
+.start-button:focus {
+  outline: none;
+  /* Remove default focus outline */
+  box-shadow: 0 0 10px rgba(166, 135, 49, 0.8);
+  /* Add a glowing effect */
+}
+
+/* PROGRESS TRACKER */
+.progress-wrap {
+  display: flex;
+  /* Use flexbox */
+  align-items: center;
+  /* Vertically align */
+  justify-content: center;
+  /* Horizontally align */
+  margin: 20px;
+}
+
+.progress-tracker {
+  display: flex;
+  margin: 5px auto;
+  padding: 0;
+  list-style: none;
+}
