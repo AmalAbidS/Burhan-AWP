@@ -4,12 +4,14 @@ $message = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // التحقق من البيانات المدخلة
     $fName = isset($_POST['fName']) ? $_POST['fName'] : '';
+    $mName = isset($_POST['mName']) ? $_POST['mName'] : '';
     $lName = isset($_POST['lName']) ? $_POST['lName'] : '';
     $email = isset($_POST['email']) ? $_POST['email'] : '';
     $password = isset($_POST['password']) ? $_POST['password'] : '';
+    $roleID = isset($_POST['roleID']) ? $_POST['roleID'] : 1;  // الحصول على الدور من النموذج
 
     // التحقق من أن الحقول ليست فارغة
-    if (empty($fName) || empty($lName) || empty($email) || empty($password)) {
+    if (empty($fName) || empty($mName) || empty($lName) || empty($email) || empty($password)) {
         $message = "يرجى ملء جميع الحقول.";
     } else {
         // التحقق من صحة البريد الإلكتروني
@@ -18,9 +20,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } elseif (strlen($password) < 6) {
             $message = "كلمة المرور يجب أن تكون على الأقل 6 أحرف.";
         } else {
-            // هنا يمكنك إضافة الكود الخاص بإدخال البيانات في قاعدة البيانات أو معالجتها
-            // في هذا المثال نقوم فقط بعرض رسالة نجاح
-            $message = "تم إضافة المحقق بنجاح!";
+            // الاتصال بقاعدة البيانات
+            $servername = "localhost"; // اسم السيرفر
+            $username = "root"; // اسم المستخدم لقاعدة البيانات
+            $dbpassword = ""; // كلمة المرور لقاعدة البيانات
+            $dbname = "burhansystem"; // اسم قاعدة البيانات
+
+            $conn = new mysqli($servername, $username, $dbpassword, $dbname);
+
+            // التحقق من الاتصال
+            if ($conn->connect_error) {
+                die("فشل الاتصال بقاعدة البيانات: " . $conn->connect_error);
+            }
+
+            // التحقق من وجود roleID في جدول role
+            $result = $conn->query("SELECT roleID FROM role WHERE roleID = '$roleID'");
+            if ($result->num_rows == 0) {
+                // إذا لم يوجد الدور في جدول role، نضيفه
+                $roleName = $roleID == 1 ? 'محقق' : 'مسؤول'; // تحديد اسم الدور بناءً على roleID
+                $conn->query("INSERT INTO role (roleID, roleName) VALUES ('$roleID', '$roleName')");
+            }
+
+            // إدخال البيانات في جدول user مع roleID
+            $sql = "INSERT INTO user (firstName, middleName, lastName, email, password, roleID) VALUES (?, ?, ?, ?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+
+            if ($stmt) {
+                $hashed_password = password_hash($password, PASSWORD_DEFAULT); // تشفير كلمة المرور
+                $stmt->bind_param("sssssi", $fName, $mName, $lName, $email, $hashed_password, $roleID);
+
+                if ($stmt->execute()) {
+                    $message = "تم إضافة المحقق بنجاح!";
+                } else {
+                    $message = "حدث خطأ أثناء إدخال البيانات.";
+                }
+
+                $stmt->close();
+            } else {
+                $message = "فشل إعداد الطلب.";
+            }
+
+            $conn->close();
         }
     }
 }
@@ -50,137 +90,105 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;600&display=swap" rel="stylesheet">
     <title>إضافة المحقق</title> 
 
-    
     <style>
-    .message {
-        margin-top: 20px;
-        font-size: 16px; /* أصغر حجم للخط */
-        padding: 8px 15px; /* تقليل المسافة الداخلية */
-        border-radius: 5px;
-        text-align: center;
-        max-width: 400px;
-        margin-left: auto;
-        margin-right: auto;
-        font-family: 'Almarai', sans-serif; /* الخط الجديد */
-    }
-    .success {
-        color: #155724;
-        background-color: #d4edda;
-        border: 1px solid #c3e6cb;
-    }
-    .error {
-        color: #721c24;
-        background-color: #f8d7da;
-        border: 1px solid #f5c6cb;
-    }
-
-    /* تأثير الظل */
-    .message {
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
+        .message {
+            margin-top: 20px;
+            font-size: 16px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-align: center;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            font-family: 'Almarai', sans-serif;
+        }
+        .success {
+            color: #155724;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
     </style>
-
 </head>
 <body>
-
   
-  <!-- الحاوية الرئيسية -->
   <div class="profile-container">
-    <!-- الخطوط الخلفية -->
     <div class="background-lines"></div>
-    <!-- المحتوى الأمامي -->
     <div class="profile-card">
-    <div class="profile-icon">
-        <i class="fas fa-user-circle"></i>  <!-- أيقونة مستخدم من Font Awesome -->
-    </div>      
-    <div class="profile-text">
-          <!-- عرض اسم المستخدم من قاعدة البيانات -->
-          <h2>{{ Auth::user()->name }}</h2>
-        <p>{{ Auth::user()->job_title ?? 'محقق' }}</p>
-      </div>
+        <div class="profile-icon">
+            <i class="fas fa-user-circle"></i>
+        </div>      
+        <div class="profile-text">
+            <h2>{{ Auth::user()->name }}</h2>
+            <p>{{ Auth::user()->job_title ?? 'محقق' }}</p>
+        </div>
     </div>
   </div>
-    <nav id="navbar">
+
+  <nav id="navbar">
         <div class="logo" id="logo">
-          <img src="public\img\burhan.png" alt="Burhan Logo">
+            <img src="public\img\burhan.png" alt="Burhan Logo">
         </div>
         <ul>
-        <li><a href="{{ route('index') }}"  ><i class="fa fa-home"></i> الرئيسية</a></li> 
+            <li><a href="{{ route('index') }}"  ><i class="fa fa-home"></i> الرئيسية</a></li> 
             <li><a href="{{ route('currentCase') }}" class="active" ><i class="fa fa-search"></i>إضافة محقق</a></li>
             <li><a href="{{ route(name: 'archive') }}" ><i class="fa fa-archive"></i> قسم الإدارة</a></li>
             <li><a href="{{ route(name: 'logout') }}"><i class="fa fa-sign-out"></i> تسجيل الخروج</a></li>
         </ul>
     </nav>
 
-<!-- عرض الرسالة بعد المعالجة -->
 <?php if ($message): ?>
     <div class="message <?php echo strpos($message, 'نجاح') !== false ? 'success' : 'error'; ?>">
         <?php echo $message; ?>
     </div>
 <?php endif; ?>
 
-<!-- نموذج إضافة المحقق -->
 <form action="" method="POST">
     <div class="page-wrapper">
         <div class="form-container">
             <div class="field">
                 <label for="fName" class="field-label">الإسم الأول:</label>
-                <input 
-                    type="text" 
-                    id="fName" 
-                    name="fName" 
-                    class="styled-select" 
-                    placeholder="الإسم الأول:"
-                    value="<?php echo htmlspecialchars($fName); ?>"
-                >
+                <input type="text" id="fName" name="fName" class="styled-select" placeholder="ادخل الإسم الأول للمحقق">
+            </div>
+            <div class="field">
+                <label for="mName" class="field-label">الإسم الأوسط :</label>
+                <input type="text" id="mName" name="mName" class="styled-select" placeholder="ادخل الإسم الأوسط للمحقق">
             </div>
             <div class="field">
                 <label for="lName" class="field-label">الإسم الأخير:</label>
-                <input 
-                    type="text" 
-                    id="lName" 
-                    name="lName" 
-                    class="styled-select" 
-                    placeholder="الإسم الأخير"
-                    value="<?php echo htmlspecialchars($lName); ?>"
-                >
+                <input type="text" id="lName" name="lName" class="styled-select" placeholder="ادخل الإسم الأخير">
             </div>
             <div class="field">
                 <label for="email" class="field-label">الإيميل:</label>
-                <input 
-                    type="email" 
-                    id="email" 
-                    name="email" 
-                    class="styled-select" 
-                    placeholder="ادخل الإيميل الخاص بالمحقق"
-                    value="<?php echo htmlspecialchars($email); ?>"
-                >
+                <input type="email" id="email" name="email" class="styled-select" placeholder="example@email.com">
             </div>
             <div class="field">
                 <label for="password" class="field-label">كلمة المرور:</label>
-                <input 
-                    type="password" 
-                    id="password" 
-                    name="password" 
-                    class="styled-select" 
-                    placeholder="ادخل كلمة المرور الخاصة بالمحقق"
-                >
+                <input type="password" id="password" name="password" class="styled-select" placeholder="ادخل كلمة المرور">
+            </div>
+            <div class="field">
+                <label for="roleID" class="field-label">الدور:</label>
+                <select id="roleID" name="roleID" class="styled-select">
+                    <option value="1">محقق</option>
+                    <option value="2">مسؤول</option>
+                </select>
             </div>
         </div>
 
-        <!-- زر الإرسال -->
         <div class="start-button-container">
             <button type="submit" class="start-button">إضافة</button>
         </div>
     </div>
 </form>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
-  <script src="js/vendor/bootstrap.min.js"></script>
-  <script src="js/datepicker.js"></script>
-  <script src="js/plugins.js"></script>
-  <script src="js/main.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="js/vendor/bootstrap.min.js"></script>
+<script src="js/datepicker.js"></script>
+<script src="js/plugins.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
