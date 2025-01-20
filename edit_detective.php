@@ -13,17 +13,7 @@ if (isset($_GET['userID'])) {
     $userID = $_GET['userID'];
 
     // الاتصال بقاعدة البيانات
-    $servername = "localhost";
-    $username = "root";
-    $dbpassword = "";
-    $dbname = "burhansystem";
-
-    $conn = new mysqli($servername, $username, $dbpassword, $dbname);
-
-    // التحقق من الاتصال
-    if ($conn->connect_error) {
-        die("فشل الاتصال بقاعدة البيانات: " . $conn->connect_error);
-    }
+    include('config.php');
 
     // جلب بيانات المحقق بناءً على userID
     $sql = "SELECT * FROM user WHERE userID = ?";
