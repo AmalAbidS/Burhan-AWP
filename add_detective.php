@@ -1,4 +1,11 @@
 <?php
+
+// التحقق من أن المستخدم لديه دور مسؤول
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'مسؤول') {
+    header("Location: login.php"); // إذا لم يكن مسؤولًا، إعادة توجيهه إلى تسجيل الدخول
+    exit();
+}
+
 // التحقق من نجاح عملية إضافة المحقق
 $message = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -17,8 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // التحقق من صحة البريد الإلكتروني
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $message = "البريد الإلكتروني غير صحيح.";
-        } elseif (strlen($password) < 6) {
-            $message = "كلمة المرور يجب أن تكون على الأقل 6 أحرف.";
+        } elseif (strlen($password) < 8) {
+            $message = "كلمة المرور يجب أن تكون على الأقل 8 أحرف.";
         } else {
             // الاتصال بقاعدة البيانات
             $servername = "localhost"; // اسم السيرفر
@@ -134,10 +141,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <img src="public\img\burhan.png" alt="Burhan Logo">
         </div>
         <ul>
-            <li><a href="{{ route('index') }}"  ><i class="fa fa-home"></i> الرئيسية</a></li> 
-            <li><a href="{{ route('currentCase') }}" class="active" ><i class="fa fa-search"></i>إضافة محقق</a></li>
-            <li><a href="{{ route(name: 'archive') }}" ><i class="fa fa-archive"></i> قسم الإدارة</a></li>
-            <li><a href="{{ route(name: 'logout') }}"><i class="fa fa-sign-out"></i> تسجيل الخروج</a></li>
+        <li><a href="{{ route('index') }}"  ><i class="fa fa-home"></i> الرئيسية</a></li> 
+<li><a href="{{ route('currentCase') }}" class="active" ><i class="fa fa-user-plus"></i> إضافة محقق</a></li>
+<li><a href="{{ route(name: 'archive') }}" ><i class="fa fa-folder-open"></i> قسم الإدارة</a></li>
+<li><a href="{{ route(name: 'logout') }}"><i class="fa fa-door-open"></i> تسجيل الخروج</a></li>
+
         </ul>
     </nav>
 
