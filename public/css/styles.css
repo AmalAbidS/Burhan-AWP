@@ -897,7 +897,7 @@ font-size: 16px; /* المسمى الوظيفي */
   direction: rtl; /* تأكيد اتجاه النص من اليمين لليسار */
   display: flex;
   flex-direction: column;
-  gap: 50px; /* Space between fields */
+  gap: 35px; /* Space between fields */
   width: 100%; /* Adjust container width */
   max-width: 35%; /* Limit the width */
   box-sizing: border-box;
