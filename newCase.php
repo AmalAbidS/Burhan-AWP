@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-include config.php;
+include('config.php');
 // // Database connection
 // $servername = "127.0.0.1";
 // $username = "root";
@@ -480,11 +480,10 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
       <img src="public\img\burhan.png" alt="Burhan Logo">
     </div>
     <ul>
-      <li><a href="{{ route('index') }}"><i class="fa fa-home"></i> الرئيسية</a></li>
-      <li><a href="{{ route('newCase') }}" class="active"><i class="fa fa-file"></i> قضية جديدة</a></li>
-      <li><a href="{{ route('currentCase') }}"><i class="fa fa-search"></i> القضية الحالية</a></li>
-      <li><a href="{{ route('archive') }}"><i class="fa fa-archive"></i> الأرشيف</a></li>
-      <li><a href="{{ route('logout') }}"><i class="fa fa-sign-out"></i> تسجيل الخروج</a></li>
+      <li><a href="index.php"><i class="fa fa-home"></i> الرئيسية</a></li>
+      <li><a href="newCase.php" class="active"><i class="fa fa-file"></i> قضية جديدة</a></li>
+      <li><a href="archive.php"><i class="fa fa-archive"></i> الأرشيف</a></li>
+      <li><a href=""><i class="fa fa-sign-out"></i> تسجيل الخروج</a></li>
     </ul>
   </nav>
 

@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    include config.php;
+    include('config.php');
     // $servername = "127.0.0.1";
     // $username = "root";
     // $password = "farah123";
