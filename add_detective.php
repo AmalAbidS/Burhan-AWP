@@ -28,17 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $message = "كلمة المرور يجب أن تكون على الأقل 8 أحرف.";
         } else {
             // الاتصال بقاعدة البيانات
-            $servername = "localhost"; // اسم السيرفر
-            $username = "root"; // اسم المستخدم لقاعدة البيانات
-            $dbpassword = ""; // كلمة المرور لقاعدة البيانات
-            $dbname = "burhansystem"; // اسم قاعدة البيانات
-
-            $conn = new mysqli($servername, $username, $dbpassword, $dbname);
-
-            // التحقق من الاتصال
-            if ($conn->connect_error) {
-                die("فشل الاتصال بقاعدة البيانات: " . $conn->connect_error);
-            }
+            include('config.php');
 
             // التحقق من وجود roleID في جدول role
             $result = $conn->query("SELECT roleID FROM role WHERE roleID = '$roleID'");
@@ -145,7 +135,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <li><a href="{{ route('currentCase') }}" class="active" ><i class="fa fa-user-plus"></i> إضافة محقق</a></li>
 <li><a href="{{ route(name: 'archive') }}" ><i class="fa fa-folder-open"></i> قسم الإدارة</a></li>
 <li><a href="{{ route(name: 'logout') }}"><i class="fa fa-door-open"></i> تسجيل الخروج</a></li>
-
         </ul>
     </nav>
 
