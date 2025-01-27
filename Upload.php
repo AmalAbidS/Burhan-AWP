@@ -3,17 +3,17 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    include('config.php');
-    // $servername = "127.0.0.1";
-    // $username = "root";
-    // $password = "farah123";
-    // $dbname = "burhansystem";
+    // include('config.php');
+    $servername = "127.0.0.1";
+    $username = "root";
+    $password = "farah123";
+    $dbname = "burhansystem";
 
-    // $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($servername, $username, $password, $dbname);
 
-    // if ($conn->connect_error) {
-    //     die("Connection failed: " . $conn->connect_error);
-    // }
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
 
     $evidenceInfo = isset($_POST['evidence']) ? htmlspecialchars(trim($_POST['evidence'])) : '';
     $caseID = isset($_GET['caseID']) ? intval($_GET['caseID']) : 0;

@@ -4,19 +4,19 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-include('config.php');
-// // Database connection
-// $servername = "127.0.0.1";
-// $username = "root";
-// $password = "farah123";
-// $dbname = "burhansystem";
+// include('config.php');
+// Database connection
+$servername = "127.0.0.1";
+$username = "root";
+$password = "farah123";
+$dbname = "burhansystem";
 
-// $conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-// // Check connection
-// if ($conn->connect_error) {
-//   die("Database connection failed: " . $conn->connect_error);
-// }
+// Check connection
+if ($conn->connect_error) {
+  die("Database connection failed: " . $conn->connect_error);
+}
 
 // Function to sanitize input
 function sanitize_input($data, $conn)
