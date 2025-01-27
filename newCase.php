@@ -454,6 +454,16 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
       padding: 0;
       list-style: none;
     }
+
+    .error-message {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    text-align: center;
+    width: 94%;
+}
   </style>
 
 </head>
