@@ -1,16 +1,6 @@
 <?php
 // إعداد الاتصال بقاعدة البيانات
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "BurhanSystem";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// التحقق من الاتصال
-if ($conn->connect_error) {
-    die("فشل الاتصال بقاعدة البيانات: " . $conn->connect_error);
-}
+include('config.php');
 
 // بدء الجلسة
 session_start();
@@ -60,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $roleName = $row['roleName'];
 
                 // التحقق من كلمة المرور
-                if (password_verify($password, $stored_password)) {
+                if ($password == $stored_password) {
                     // حفظ بيانات المستخدم في الجلسة
                     $_SESSION['userID'] = $row['userID'];
                     $_SESSION['roleID'] = $roleID;

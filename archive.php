@@ -1,12 +1,13 @@
 <?php
 include('config.php');
+session_start();
 
 
-$currentUserID = 2;         // $_SESSION['userID']; اخذها من تسجيل الدخول
-$currentRole = 'admin';     // $_SESSION['role'];   اخذها من تسجيل الدخول
+$currentUserID = $_SESSION['userID']; 
+$currentRole = $_SESSION['roleID'];
 
 // ------------------------------- Case Table -------------------------------
-if ($currentRole == 'admin') {
+if ($currentRole == 2) {
     // If the user is 'admin', display all cases.
     $sql_cases = "SELECT `caseID`, `adminID`, `detectiveID`, `title`, `locationID`, `date`, `time`, `additionalInfo`, `status`, `criminal`, `victim`, `caseType` FROM `case`";
 } else {
@@ -187,10 +188,10 @@ if (isset($_GET['delete_detective_id'])) {
             <img src="public\img\burhan.png" alt="Burhan Logo">
         </div>
         <ul>
-            <li><a href="{{ route('index') }}"><i class="fa fa-home"></i> الرئيسية</a></li>
-            <li><a href="{{ route('currentCase') }}"><i class="fa fa-search"></i>إضافة محقق</a></li>
-            <li><a href="{{ route(name: 'archive') }}" class="active"><i class="fa fa-archive"></i> قسم الإدارة</a></li>
-            <li><a href="{{ route(name: 'logout') }}"><i class="fa fa-sign-out"></i> تسجيل الخروج</a></li>
+            <li><a href="index.php"><i class="fa fa-home"></i> الرئيسية</a></li>
+            <li><a href="add_detective.php"><i class="fa fa-search"></i>إضافة محقق</a></li>
+            <li><a href="archive.php" class="active"><i class="fa fa-archive"></i> قسم الإدارة</a></li>
+            <li><a href="logout.php"><i class="fa fa-sign-out"></i> تسجيل الخروج</a></li>
         </ul>
     </nav>
 
@@ -213,7 +214,7 @@ if (isset($_GET['delete_detective_id'])) {
                     <th scope="col" onclick="sortTable('case-Table', 3)">الموقع</th>
                     <th scope="col" onclick="sortTable('case-Table', 4)">التاريخ والوقت</th>
                     <th scope="col" style="cursor:text;">الحالة</th>
-                    <th scope="col" style="cursor:text;">التعديل/الحذف</th>
+                    <th scope="col" style="cursor:text;">التعديل</th>
                 </tr>
             </thead>
             <tbody>
@@ -256,7 +257,6 @@ if (isset($_GET['delete_detective_id'])) {
                         echo "'>" . htmlspecialchars($row['status']) . "</td>";
                         echo "<td>
                         <button class='btn btn-outline-warning btn-sm' onclick='editCase(" . $row['caseID'] . ")'><i class='fa fa-pencil'></i></button>
-                        <button class='btn btn-outline-danger btn-sm' onclick='deleteCase(" . $row["caseID"] . ")'><i class='fa fa-trash'></i></button>
                       </td>";
                         echo "</tr>";
                     }
@@ -269,7 +269,7 @@ if (isset($_GET['delete_detective_id'])) {
     </section>
 
     <!-- أرشيف المحققين -->
-    <section style="margin: 5%; padding-right: 15%; padding-left: 5%;">
+    <section style="margin: 5%; padding-right: 15%; padding-left: 5%; <?php if ($currentRole != 2) { echo'display:none'; } ?>">
         <div>
             <h1 class="field-label" style="text-align: center; font-size: 36px;">أرشيف المحققين:</h1>
         </div>
@@ -413,15 +413,15 @@ if (isset($_GET['delete_detective_id'])) {
     <script>
         function editCase(id) {
             // يروح لصفحة التعديل مع الآي دي
-            window.location.href = `editDetective.php?id=${id}`;
+            window.location.href = `editCase.php?id=${id}`;
         }
 
-        function deleteCase(caseID, caseTitle) {
-            if (confirm("هل أنت متأكد من حذف القضية " + caseTitle + "؟")) {
-                // اذا قال اوكي، يروح لصفحة الحذف مع الآي دي
-                window.location.href = "archive.php?delete_case_id=" + caseID;
-            }
-        }
+        // function deleteCase(caseID, caseTitle) {
+        //     if (confirm("هل أنت متأكد من حذف القضية " + caseTitle + "؟")) {
+        //         // اذا قال اوكي، يروح لصفحة الحذف مع الآي دي
+        //         window.location.href = "archive.php?delete_case_id=" + caseID;
+        //     }
+        // }
 
         function editDetective(id) {
             // يروح لصفحة التعديل مع الآي دي
